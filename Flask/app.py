@@ -3,10 +3,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from draw_graph import draw_graph
-from predict import sentiment_predict
 app = Flask(__name__)
-app.secret_key = '1234'
+
 
 @app.route('/')
 def index():
@@ -21,18 +19,8 @@ def menu1():
     if request.method == 'GET':
         return render_template('menu1.html', menu=menu)
     else:
-        sentence = request.form['sentence']
-        m_name = request.form['m_name']
-        class_text = ['여성 혐오', '남성 혐오', '성소수자 차별', '인종/국적 차별', '세대갈등', '지역 갈등', '종교 갈등', '기타 혐오', '욕설', 'clean', '분쟁유발']
-        score = sentiment_predict(sentence, m_name)
-        dic = dict()
-        for i in range(len(score[0])):
-            if score[0][i] >= 0.1:
-                dic[i] = score[0][i]
-        sorted_dict = sorted(dic.items(), key = lambda item: item[1], reverse=True)
-
-        result = f"'{sentence}'의 유형은 {[class_text[d[0]] for d in sorted_dict]}입니다."
-        return render_template('menu1_res.html', menu=menu, sentence=sentence, result=result, m_name=m_name)
+       
+        return render_template('menu1_res.html', menu=menu)
 
  
 @app.route('/menu2', methods=['GET', 'POST'])
@@ -41,14 +29,8 @@ def menu2():
     if request.method == 'GET':
         return render_template('menu2.html', menu=menu)
     else:
-        sentence = request.form['sentence']
-        m_name = request.form['m_name']
-        class_text = ['여성 혐오', '남성 혐오', '성소수자 차별', '인종/국적 차별', '세대갈등', '지역 갈등', '종교 갈등', '기타 혐오', '욕설', 'clean', '분쟁유발']
-
-        score = sentiment_predict(sentence, m_name)
-        draw_graph(score[0],class_text)
-        result = f'{m_name}모델의 댓글 "{sentence}" 유형별 확률'
-        return render_template('menu2_res.html', menu=menu, sentence=sentence, result=result)
+       
+        return render_template('menu2_res.html', menu=menu)
 
 
 @app.route('/menu3', methods=['GET', 'POST'])
@@ -57,34 +39,8 @@ def menu3():
     if request.method == 'GET':
         return render_template('menu3.html', menu=menu)
     else:
-        sentence = request.form['sentence']
-        score = sentiment_predict(sentence)
-        c_type = np.argmax(score[0])
-        if np.argmax(score[0]) != 9:
-            if c_type == 0:
-                flash("여성에 대한 혐오 표현을 자제해주세요.")
-            elif c_type == 1:
-                flash("남성에 대한 혐오 표현을 자제해주세요.")
-            elif c_type == 2:
-                flash("성소수자에 대한 혐오 표현을 자제해주세요.")
-            elif c_type == 3:
-                flash("인종차별 표현을 자제해주세요.")
-            elif c_type == 4:
-                flash("세대 갈등 표현을 자제해주세요.")
-            elif c_type == 5:
-                flash("지역 갈등 표현을 자제해주세요.")
-            elif c_type == 6:
-                flash("종교에 대한 혐오 표현을 자제해주세요.")
-            elif c_type == 7:
-                flash("악플을 자제해주세요.")
-            elif c_type == 8:
-                flash("악플을 자제해주세요.")
-            elif c_type == 10:
-                flash("분쟁 유발 댓글을 자제해주세요.")
-            return redirect('menu3')
-        else:
-            pass
-        return render_template('menu3_res.html', menu=menu, sentence=sentence)
+      
+        return render_template('menu3_res.html', menu=menu)
 
 @app.route('/menu4', methods=['GET', 'POST'])
 def menu4():
@@ -103,11 +59,6 @@ def menu5():
     else:
         
         return render_template('menu5_res.html', menu=menu)
-# background process happening without any refreshing
-@app.route('/background_process_test')
-def background_process_test():
-    # 여기 악플 판별 모듈 불러오기
-    return 1
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5000, debug=True)

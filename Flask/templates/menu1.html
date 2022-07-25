@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block subtitle %}
-<strong style="font-family: NEXON Lv2 Gothic Bold;">악플 유형 판별</strong>
+<strong style="font-family: NEXON Lv2 Gothic Bold;">사진 업로드</strong>
 {% endblock %}
 {% block content %}
 <div class="row">
@@ -9,17 +9,9 @@
         <form action="/menu1" method="post" style="font-family: NEXON Lv2 Gothic Light;">
             <td>학습모델: </td>
             <select name="m_name">
-                <option value="BiLSTM_LSTM">BiLSTM + LSTM</option>
-                <option value="Conv1D_GRU">Conv1D + GRU</option>
-                <option value="Conv1D_LSTM">Conv1D + LSTM</option>
-                <option value="LSTM">LSTM</option>
-                <option value="GRU">GRU</option>
-                <option value="Conv1D_BiLSTM">Conv1D + BiLSTM</option>
-                <option value="CNN_BiLSTM_LSTM">CNN + BiLSTM + LSTM</option>
-                <option value="BiLSTM">BiLSTM</option>
             </select>
             <form>
-                입력: <input type="text" name="sentence" placeholder="판별할 문장을 입력하세요">
+                입력: <input type="text" name="sentence" placeholder=입력하세요>
                 <button type="submit" class="btn btn-primary mr-2"
                     style="background-color: rgb(8,32,64); font-family: NEXON Lv2 Gothic Bold;">실행</button>
             </form>
