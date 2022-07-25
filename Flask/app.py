@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash, redirect
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import projector as pj
 app = Flask(__name__)
 
 
@@ -19,8 +19,9 @@ def menu1():
     if request.method == 'GET':
         return render_template('menu1.html', menu=menu)
     else:
-       
-        return render_template('menu1_res.html', menu=menu)
+        camera = request.form['camera']
+        
+        return render_template('menu1_res.html', menu=menu, camera=camera)
 
  
 @app.route('/menu2', methods=['GET', 'POST'])

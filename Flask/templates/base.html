@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}오히려 좋아{% endblock %}</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="shortcut icon" href="{{url_for('static', filename='img/favicon.ico')}}">
     <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            if (!('url' in window) && ('webkitURL' in window)) {
+                window.URL = window.webkitURL;
+            }
+
+            $('#camera').change(function (e) {
+                $('#pic').attr('src', URL.createObjectURL(e.target.files[0]));
+            });
+        });
+    </script>
     {% block additional_head %}{% endblock %}
     {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <script type="text/javascript">
-                alert("{{messages[0]}}");
-            </script>
-        {% endif %}
+    {% if messages %}
+    <script type="text/javascript">
+        alert("{{messages[0]}}");
+    </script>
+    {% endif %}
     {% endwith %}
     <style>
         @font-face {
@@ -24,27 +38,32 @@
             font-weight: normal;
             font-style: normal;
         }
+
         @font-face {
             font-family: 'NEXON Lv2 Gothic Bold';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
             font-weight: normal;
             font-style: normal;
         }
+
         @font-face {
             font-family: 'NEXON Lv2 Gothic Light';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Light.woff') format('woff');
             font-weight: normal;
             font-style: normal;
         }
-        a{
+
+        a {
             font-family: 'NEXON Lv2 Gothic Light';
             color: whitesmoke;
         }
+
         .nav-link {
             background-color: rgb(8, 32, 64);
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <!-- Brand/logo -->
@@ -55,8 +74,8 @@
         <!-- Links -->
         <ul class="nav nav-pills mr-auto">
             <li class="nav-item mr-5">
-                <a class="nav-link {% if menu.home %}active{% endif %}" 
-                   href="{% if menu.home %}#{% else %}/{% endif %}">
+                <a class="nav-link {% if menu.home %}active{% endif %}"
+                    href="{% if menu.home %}#{% else %}/{% endif %}">
                     <i class="fa fa-home"></i> Home
                 </a>
             </li>
@@ -67,15 +86,15 @@
             </span>
         </nav>
     </nav>
-    
+
     <div class="container show-grid">
         <div class="row mt-3">
             <div class="col-md-3">
                 <ul class="nav flex-column nav-pills">
                     <div class="dropdown-divider"></div>
                     <li class="nav-item">
-                        <a class="nav-link {% if menu.menu1 %}active{% endif %}" 
-                           href="{% if menu.menu1 %}/menu1{% else %}/menu1{% endif %}">사진 업로드</a>
+                        <a class="nav-link {% if menu.menu1 %}active{% endif %}"
+                            href="{% if menu.menu1 %}/menu1{% else %}/menu1{% endif %}">사진 업로드</a>
                     </li>
                     <!-- <div class="dropdown-divider"></div>
                     <li class="nav-item">
@@ -107,14 +126,15 @@
                 {% endblock %}
             </div>
         </div>
-    </div>  
+    </div>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center fixed-bottom">
-        <a href = "https://github.com/oodeng98/Multi_5" class="navbar-text">
-            Copyright &copy; 2022 B반 중간 프로젝트 5조 반반조(고은혜, 원동찬, 윤민영, 정태완). All rights reserved.
+        <a href="https://github.com/wdc35333/mulcam_final" class="navbar-text">
+            Copyright &copy; 최종 프로젝트 3조 오히려 좋아(권기일, 박재훈, 원동찬, 이국진, 정성목, 조혜진). All rights reserved.
         </a>
     </nav>
     {% block additional_body %}
     {% endblock %}
 </body>
+
 </html>

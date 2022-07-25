@@ -7,14 +7,9 @@
     <!-- <div class="col-1"></div> -->
     <div class="col-10">
         <form action="/menu1" method="post" style="font-family: NEXON Lv2 Gothic Light;">
-            <td>학습모델: </td>
-            <select name="m_name">
-            </select>
-            <form>
-                입력: <input type="text" name="sentence" placeholder=입력하세요>
-                <button type="submit" class="btn btn-primary mr-2"
-                    style="background-color: rgb(8,32,64); font-family: NEXON Lv2 Gothic Bold;">실행</button>
-            </form>
+            <input type="file" id="camera" name="camera" capture="camera" accept="image/*" />
+            <img id="pic" style="width:100%;" />
+            <input type="submit" value="전송" />
         </form>
     </div>
     <!-- <div class="col-1"></div> -->
